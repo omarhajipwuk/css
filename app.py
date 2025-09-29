@@ -33,7 +33,7 @@ BORDER_REGIONS = ["UK", "FR", "NL", "BE", "NO2", "DE", "DK1", "IE"]  # UK is syn
 # Sidebar nav
 # =========================
 st.sidebar.title("Navigation")
-view = st.sidebar.radio("Go to", ["Clean Spark", "Default", "Border Prices"], index=0)
+view = st.sidebar.radio("Go to", ["Clean Spark", "Border Prices"], index=0)
 
 # =========================
 # Helpers / time
@@ -436,5 +436,6 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
