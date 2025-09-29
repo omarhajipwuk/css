@@ -251,7 +251,7 @@ def render_clean_spark():
     plot_df = melt_for_plot(df, chosen)
     fig = px.line(
         plot_df, x="Date", y="Value", color="Series", template="simple_white",
-        title="Time Series from CSV",
+        title="Border Prices",
         labels={"Date": x_label, "Value": y_label, "Series": legend_title},
     )
     fig.update_traces(line=dict(width=2.0), mode="lines+markers" if show_markers else "lines")
@@ -427,6 +427,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
