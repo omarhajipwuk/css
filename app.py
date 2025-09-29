@@ -273,23 +273,6 @@ def render_clean_spark():
 # =========================
 # Default page
 # =========================
-def render_default():
-    st.title("Default View")
-    st.write("A simple placeholder page.")
-    with st.sidebar:
-        st.subheader("Default Controls")
-        n = st.slider("Sample size", 100, 5000, 1000, 100)
-        bins = st.slider("Histogram bins", 5, 100, 30, 5)
-    rng = np.random.default_rng(0)
-    df = pd.DataFrame({"x": rng.normal(0, 1, n)})
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Mean", f"{df['x'].mean():.3f}")
-    c2.metric("Std Dev", f"{df['x'].std():.3f}")
-    c3.metric("Samples", f"{len(df)}")
-    hist = px.histogram(df, x="x", nbins=bins, template="simple_white", title="Normal(0, 1) Sample")
-    st.plotly_chart(hist, use_container_width=True)
-    with st.expander("Peek at the data"):
-        st.dataframe(df.head(20), use_container_width=True)
 
 # =========================
 # Border Prices page (login required via inputs)
@@ -444,9 +427,7 @@ def render_border_prices():
 # Router
 # =========================
 if view == "Clean Spark":
-    render_clean_spark()
-elif view == "Default":
-    render_default()
+    render_clean_spark()s
 else:
     render_border_prices()
 
@@ -454,4 +435,5 @@ else:
 # Footer
 # =========================
 st.write("---")
-st.caption("Built with ❤️ using Streamlit. Switch views from the sidebar.")
+st.caption(" note to self -- fix table switching errors.")
+
