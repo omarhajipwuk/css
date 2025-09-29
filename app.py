@@ -242,7 +242,7 @@ def render_clean_spark():
     if drop_all_nan and numeric_cols:
         df = df.loc[~df[numeric_cols].isna().all(axis=1)].reset_index(drop=True)
 
-    st.success(f"CSV loaded{f' (encoding: {used_enc})' if used_enc else ''}.")
+   #st.success(f"CSV loaded{f' (encoding: {used_enc})' if used_enc else ''}.")
     chosen = st.multiselect("Series to plot", options=numeric_cols, default=numeric_cols)
     if not chosen:
         st.info("Select at least one series to plot.")
@@ -427,6 +427,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
