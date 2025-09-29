@@ -427,7 +427,7 @@ def render_border_prices():
 # Router
 # =========================
 if view == "Clean Spark":
-    render_clean_spark()s
+    render_clean_spark()
 else:
     render_border_prices()
 
@@ -436,4 +436,5 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
