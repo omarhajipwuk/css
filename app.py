@@ -204,16 +204,7 @@ def render_clean_spark():
         """,
         unsafe_allow_html=True,
     )
-    st.markdown(
-        """
-        <div class="spark-hero">
-          <span class="spark-badge">Clean Spark</span>
-          <h1 style="margin:.4rem 0 0 0;">⚡ Plot your CSV by date</h1>
-          <p class="spark-subtle">Upload <code>css.csv</code> or keep it in the repo. Accepts columns like <code>D-5..D-1, D</code>. Missing cells are fine.</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+
 
     with st.sidebar:
         st.subheader("CSV Source")
@@ -436,6 +427,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
