@@ -250,20 +250,30 @@ def render_clean_spark():
 
     plot_df = melt_for_plot(df, chosen)
     # Get the order of chosen series so the rightmost one is last
+
+# Order so rightmost column = newest
     ordered_cols = sorted(chosen, key=lambda c: numeric_cols.index(c))
-        
-    # Build a greyscale palette: darkest (black) for rightmost, lighter for left
+    
+    # Choose a colourmap (try "Blues", "Reds", "Greens", "Purples", "viridis"…)
+    cmap = plt.cm.Blues  
+    
     n = len(ordered_cols)
-    colors = [f"rgba(0,0,0,{0.3 + 0.7*(i/(n-1))})" for i in range(n)]  # fades from grey → black
-        
-    # Override colors in px.line
+    # Generate N colours from light to dark
+    colors = [cmap(i) for i in np.linspace(0.3, 1, n)]
+    colors = [f"rgba({int(r*255)},{int(g*255)},{int(b*255)},1)" for r, g, b, _ in colors]
+    
+    # Reverse so latest (rightmost) = darkest
+    colors = colors[::-1]
+    
+    # Build the figure with custom colours
     fig = px.line(
         plot_df, x="Date", y="Value", color="Series", template="simple_white",
         title="Border Prices",
         labels={"Date": x_label, "Value": y_label, "Series": legend_title},
-        category_orders={"Series": ordered_cols},   # enforce order
+        category_orders={"Series": ordered_cols},
         color_discrete_sequence=colors
     )
+
 
     fig.update_traces(line=dict(width=2.0), mode="lines+markers" if show_markers else "lines")
     fig.update_layout(margin=dict(t=60, r=20, l=10, b=10))
@@ -438,6 +448,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
