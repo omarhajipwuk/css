@@ -8,6 +8,7 @@ import numpy as np
 import plotly.express as px
 import datetime as dt
 from zoneinfo import ZoneInfo
+import matplotlib.pyplot as plt
 
 # =========================
 # Streamlit page setup
@@ -448,6 +449,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
