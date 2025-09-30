@@ -254,6 +254,21 @@ def render_clean_spark():
         title="Border Prices",
         labels={"Date": x_label, "Value": y_label, "Series": legend_title},
     )
+
+    ordered_cols = sorted(chosen, key=lambda c: numeric_cols.index(c))
+
+# Build a greyscale palette: darkest (black) for rightmost, lighter for left
+    n = len(ordered_cols)
+    colors = [f"rgba(0,0,0,{0.3 + 0.7*(i/(n-1))})" for i in range(n)]  # fades from grey → black
+    
+    # Override colors in px.line
+    fig = px.line(
+        plot_df, x="Date", y="Value", color="Series", template="simple_white",
+        title="Border Prices",
+        labels={"Date": x_label, "Value": y_label, "Series": legend_title},
+        category_orders={"Series": ordered_cols},   # enforce order
+        color_discrete_sequence=colors
+    )
     fig.update_traces(line=dict(width=2.0), mode="lines+markers" if show_markers else "lines")
     fig.update_layout(margin=dict(t=60, r=20, l=10, b=10))
     st.plotly_chart(fig, use_container_width=True)
@@ -427,6 +442,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
