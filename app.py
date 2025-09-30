@@ -208,9 +208,9 @@ def render_clean_spark():
 
     with st.sidebar:
         st.subheader("CSV Source")
-        default_choice = "css.csv (same folder)" if os.path.exists("css.csv") else "Upload CSV"
-        source = st.radio("Choose source", ["css.csv (same folder)", "Upload CSV"],
-                          index=0 if default_choice == "css.csv (same folder)" else 1)
+        default_choice = "data.csv (same folder)" if os.path.exists("data.csv") else "Upload CSV"
+        source = st.radio("Choose source", ["data.csv (same folder)", "Upload CSV"],
+                          index=0 if default_choice == "data.csv (same folder)" else 1)
         uploaded = st.file_uploader("Upload CSV", type=["csv"]) if source == "Upload CSV" else None
 
         st.subheader("Options")
@@ -224,10 +224,10 @@ def render_clean_spark():
     df = None
     used_enc = None
     try:
-        if source == "css.csv (same folder)":
-            df, used_enc = load_csv_path("css.csv")
+        if source == "data.csv (same folder)":
+            df, used_enc = load_csv_path("data.csv")
             if df is None:
-                st.warning("No css.csv found. Switch to 'Upload CSV' or place css.csv next to app.py.")
+                st.warning("No data.csv found. Switch to 'Upload CSV' or place data.csv next to app.py.")
         else:
             if uploaded is not None:
                 df, used_enc = load_csv_bytes(uploaded.getvalue())
@@ -427,6 +427,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
