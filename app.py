@@ -249,19 +249,13 @@ def render_clean_spark():
         return
 
     plot_df = melt_for_plot(df, chosen)
-    fig = px.line(
-        plot_df, x="Date", y="Value", color="Series", template="simple_white",
-        title="Border Prices",
-        labels={"Date": x_label, "Value": y_label, "Series": legend_title},
-    )
-
     # Get the order of chosen series so the rightmost one is last
     ordered_cols = sorted(chosen, key=lambda c: numeric_cols.index(c))
-    
+        
     # Build a greyscale palette: darkest (black) for rightmost, lighter for left
     n = len(ordered_cols)
     colors = [f"rgba(0,0,0,{0.3 + 0.7*(i/(n-1))})" for i in range(n)]  # fades from grey → black
-    
+        
     # Override colors in px.line
     fig = px.line(
         plot_df, x="Date", y="Value", color="Series", template="simple_white",
@@ -444,6 +438,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
