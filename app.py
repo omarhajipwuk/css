@@ -206,7 +206,6 @@ def render_clean_spark():
         unsafe_allow_html=True,
     )
 
-
     with st.sidebar:
         st.subheader("CSV Source")
         default_choice = "data1.csv (same folder)" if os.path.exists("data1.csv") else "Upload CSV"
@@ -243,38 +242,18 @@ def render_clean_spark():
     if drop_all_nan and numeric_cols:
         df = df.loc[~df[numeric_cols].isna().all(axis=1)].reset_index(drop=True)
 
-   #st.success(f"CSV loaded{f' (encoding: {used_enc})' if used_enc else ''}.")
     chosen = st.multiselect("Series to plot", options=numeric_cols, default=numeric_cols)
     if not chosen:
         st.info("Select at least one series to plot.")
         return
 
     plot_df = melt_for_plot(df, chosen)
-    # Get the order of chosen series so the rightmost one is last
 
-# Order so rightmost column = newest
-    ordered_cols = sorted(chosen, key=lambda c: numeric_cols.index(c))
-    
-    # Choose a colourmap (try "Blues", "Reds", "Greens", "Purples", "viridis"…)
-    cmap = plt.cm.Blues  
-    
-    n = len(ordered_cols)
-    # Generate N colours from light to dark
-    colors = [cmap(i) for i in np.linspace(0.3, 1, n)]
-    colors = [f"rgba({int(r*255)},{int(g*255)},{int(b*255)},1)" for r, g, b, _ in colors]
-    
-    # Reverse so latest (rightmost) = darkest
-    colors = colors[::-1]
-    
-    # Build the figure with custom colours
     fig = px.line(
         plot_df, x="Date", y="Value", color="Series", template="simple_white",
         title="Border Prices",
         labels={"Date": x_label, "Value": y_label, "Series": legend_title},
-        category_orders={"Series": ordered_cols},
-        color_discrete_sequence=colors
     )
-
 
     fig.update_traces(line=dict(width=2.0), mode="lines+markers" if show_markers else "lines")
     fig.update_layout(margin=dict(t=60, r=20, l=10, b=10))
@@ -449,6 +428,7 @@ else:
 # =========================
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
