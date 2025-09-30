@@ -425,9 +425,9 @@ else:
 # =========================
 # Footer
 # =========================
-st.write(df.columns)
 st.write("---")
 st.caption(" note to self -- fix table switching errors.")
+
 
 
 
